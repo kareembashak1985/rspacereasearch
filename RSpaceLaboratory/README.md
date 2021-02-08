@@ -62,7 +62,9 @@
 	8) Api interface swagger documentation url : Replace {localhost} with actual host name
 	     url : http://localhost:8080/public-api-interface.html
 	     
-	9) Test the APi's from Swagger page. 
+	9) Test the APi's from Swagger page.
+	
+	   Refer: Rspace - TestCases.pdf
 	
 	10) In case of facing the access with swagger page .Run the unit test cases  to test RspaceLabService service.
 	

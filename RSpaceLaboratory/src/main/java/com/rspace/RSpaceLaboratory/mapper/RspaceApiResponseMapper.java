@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rspace.RSpaceLaboratory.Exception.ProblemDetailsException;
+import com.rspace.RSpaceLaboratory.Util.Utility;
 import com.rspace.RSpaceLaboratory.config.Constant;
 import com.rspace.RSpaceLaboratory.externalapi.model.Owner;
 import com.rspace.RSpaceLaboratory.externalapi.model.RspaceSampleResponse;
@@ -23,7 +24,7 @@ public class RspaceApiResponseMapper {
 		RspaceSampleResponse response = null;
 		try {
 			if (apiResponse == null) {
-				throw new ProblemDetailsException(Constant.RSPACE_BKND_SERVICE_ERROR);
+				throw new ProblemDetailsException(Constant.BKND_SERVICE_ERROR);
 			}
 			response = objectMapper.readValue(apiResponse, RspaceSampleResponse.class);
 
@@ -42,7 +43,7 @@ public class RspaceApiResponseMapper {
 		UserLabReport usersamples = new UserLabReport();
 		try {
 			if (response == null) {
-				throw new ProblemDetailsException(Constant.RSPACE_BKND_SERVICE_ERROR);
+				throw new ProblemDetailsException(Constant.BKND_SERVICE_ERROR);
 			}
 			response.getSamples().stream().filter(s->s.getOwnerObject().getUsername().equalsIgnoreCase(userName)).forEach( s -> {			
 			
@@ -77,6 +78,7 @@ public class RspaceApiResponseMapper {
 
 		} catch (ProblemDetailsException e) {
 			logger.error("Error encounter while marshalling the api response : " + e.getMessage());
+			return Utility.mapErrorDetails(usersamples, e);
 		}  catch (Exception e) {
 			logger.error("Error encounter while tranform RspaceSampleResponse to UserSamples : " + e.getMessage());
 		}

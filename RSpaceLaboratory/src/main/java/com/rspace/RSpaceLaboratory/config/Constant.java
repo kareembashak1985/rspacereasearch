@@ -7,8 +7,9 @@ public interface Constant {
 	String ORDER_BY = "orderBy";
 	String EQUAL_TO="="; 
 	String AMPERSAND="&";
-	String DATA_NOT_FOUND="No records found for the given user" ; 
-	String RSPACE_BKND_SERVICE_ERROR="RSpace backend service error";
+	String DATA_NOT_FOUND="No records found for the given criteria" ; 
+	String BKND_SERVICE_ERROR="Encounter error while processing the request";
 	String APIKEY="apiKey";
+	String BAD_REQUEST="Bad Request";
 
 }

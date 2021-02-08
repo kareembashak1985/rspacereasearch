@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rspace.RSpaceLaboratory.Exception.BadRequest;
 import com.rspace.RSpaceLaboratory.Exception.DataNotFoundException;
+import com.rspace.RSpaceLaboratory.Exception.ProblemDetailsException;
 import com.rspace.RSpaceLaboratory.Util.Utility;
 import com.rspace.RSpaceLaboratory.config.AppConfigProperties;
 import com.rspace.RSpaceLaboratory.config.Constant;
@@ -41,6 +43,12 @@ public class RspaceLabServiceImpl implements RspaceLabService {
 				throw new DataNotFoundException(Constant.DATA_NOT_FOUND); 
 			}			
 			
+		} catch (BadRequest e) {
+			log.error("Bad request " +  e.getMessage());			
+			return Utility.mapErrorDetails(userSamples,e);
+		} catch (ProblemDetailsException e) {
+			log.error("Error encounter while processing the request " +  e.getMessage());			
+			return Utility.mapErrorDetails(userSamples,e);
 		} catch (DataNotFoundException e) {
 			log.error("User not found for the given request " + "UserName=" + userName + " : "+ e.getMessage());			
 			return Utility.mapErrorDetails(userSamples,e);
